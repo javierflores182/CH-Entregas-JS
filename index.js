@@ -9,7 +9,7 @@ let notaFinal = 0.0
 //OBTIENE EL NOMBRE DEL ESTUDIANTE
 let IngreseNombreUsuario=()=>{
     do {
-        nombreUsuario = prompt("Ingese el nombre del estudiante:")
+        nombreUsuario = prompt("Ingrese el nombre del estudiante:")
       } while (nombreUsuario==="");
     return nombreUsuario
 }
@@ -18,7 +18,7 @@ let IngreseNombreUsuario=()=>{
 //OBTIENE CUANTAS NOTAS O CALIFICACIONES QUIERE INGRESAR EL USUARIO.
 function IngresoCantidadNotas(){
     do {
-        cantidadNotas= parseInt(prompt("Ingrese la cantidad de calificaciones a ingresar:"))
+        cantidadNotas= parseInt(prompt("Ingrese la cantidad de calificaciones a digitar:"))
       } while (cantidadNotas===0);
 
       const validar=confirm("Desea ingresar la cantidad de "+cantidadNotas+" calificaciones para el/la estudiante "+nombreUsuario+"?")
