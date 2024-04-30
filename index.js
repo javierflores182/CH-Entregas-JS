@@ -4,6 +4,8 @@ let cantidadNotas=0
 let notas=0.0
 let notasAcumuladas = 0.0
 let notaFinal = 0.0
+let resumenNotas ="Resumen de Promedios\n"+"Estudiante(s)\t\t\tNota(s)\n"
+
 
 
 //OBTIENE EL NOMBRE DEL ESTUDIANTE
@@ -15,16 +17,17 @@ let IngreseNombreUsuario=()=>{
 }
 
 
+
 //OBTIENE CUANTAS NOTAS O CALIFICACIONES QUIERE INGRESAR EL USUARIO.
 function IngresoCantidadNotas(){
     do {
         cantidadNotas= parseInt(prompt("Ingrese la cantidad de calificaciones a digitar:"))
-      } while (cantidadNotas===0);
+      } while (cantidadNotas===0 || Number.isNaN(cantidadNotas));
 
       const validar=confirm("Desea ingresar la cantidad de "+cantidadNotas+" calificaciones para el/la estudiante "+nombreUsuario+"?")
       if(validar==false){
         IngresoCantidadNotas()
-      }
+      } 
       return cantidadNotas
 }
 
@@ -35,7 +38,7 @@ function CalculoPromedio(){
     notaFinal = 0.0
     for(let i=1;i<=cantidadNotas;i++){
         notas= parseFloat(prompt("Ingrese la calificación de la nota "+i+"/"+cantidadNotas))
-        while (notas<0 || notas>100 ){
+        while (notas<0 || notas>100 || Number.isNaN(notas)){
             alert("El valor ingresado:"+ notas+ " es incorrecto. \n Debe ingresar calificaciones entre 0 y 100. Ingrese nuevamente el valor correcto.")
             notas= parseFloat(prompt("Ingrese la calificacion de la nota "+i+"/"+cantidadNotas))
         }
@@ -67,6 +70,7 @@ function observacion(){
 
 //FINALMENTE GENERA UN ALERT DONDE MUESTRA EL PROMEDIO Y LA NOTA OBTENIDA DEL ESTUDIANTE.
 function ImprimirMensaje(){
+    resumenNotas= resumenNotas + nombreUsuario + "\t\t\t\t" + notaFinal.toFixed(2)+"\n"
     alert("La calificación final (Promedio) para el/la estudiante "+nombreUsuario+" es de "+ notaFinal.toFixed(2) +"% Por lo que su nivel es: " + observacion())
 }
 
@@ -84,5 +88,21 @@ function IniciarProceso(){
     }
 
 
+//MUESTRA EL MENSAJE DEL RESUMEN DE LOS PROMEDIOS CALCULADOS.
+function mensajeResumen(){
+    alert(resumenNotas)
+}
+
+//MENSAJE DE BIENVENIDA A LA PAGINA.
+alert("Bienvenid@ a mi primera pre entrega, Simulador de calculo de calificaciones.\nPor: Javier Flores.")
+
+
 //LLAMADO DE LA FUNCION PARA INICIAR EL PROCESO DE INGRESO DE LA INFORMACION POR PARTE DEL USUARIO.
 IniciarProceso()
+
+
+//LLAMA A LA FUNCION PARA MOSTRAR EL MENSAJE DE RESUMEN.
+mensajeResumen()
+
+
+
