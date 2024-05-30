@@ -1,0 +1,105 @@
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    list-style: none;
+    font-family: sans-serif;
+  }
+
+
+header{
+    display: flex;
+    width: 100%; /* Abarcar todo el ancho de la página */
+    height: 83px;
+    justify-content:left; /* Para alinear horizontalmente al centro */
+    align-items: center; /* Para alinear verticalmente al centro */
+    background: url("../images/cabezote.jpg");
+  }
+
+
+  body {
+    background-color: white
+  }
+
+
+  nav {
+    height: 45px;
+    background: url("../images/nav.jpg");
+  }
+
+  nav div div .navbar-nav .nav-item .nav-link {
+    color: white;
+  }
+
+  nav div div .navbar-nav .nav-item .nav-link:hover {
+    color: rgb(37, 37, 37);
+  }
+
+
+  #GestionAlumnos{
+    margin-top: 30px;
+    display: flex;
+    width: 100%; /* Abarcar todo el ancho de la página */
+    justify-content:center; /* Para alinear horizontalmente al centro */
+    align-items: center; /* Para alinear verticalmente al centro */
+    /* background-color: red; */
+    flex-direction: column; /* Cambia la dirección del flujo a vertical */
+    padding: 0;
+  }
+
+
+  #agregarAlumno
+   {
+    padding: 20px;
+    width: 1000px; /* Ancho deseado */
+    height: 400px; /* Altura deseada */
+    background-color: rgb(245,245,245); /* Color de fondo */
+    margin: 10px; /* Margen entre los dos divs */
+    border: 10px rgb(245,245,245) solid;
+    border-radius: 10px;
+  }
+
+  
+  #tablaAlumno {
+    padding: 20px;
+    width: 1000px; /* Ancho deseado */
+    height: 500px; /* Altura deseada */
+    background-color: rgb(245,245,245); /* Color de fondo */
+    margin: 10px; /* Margen entre los dos divs */
+    border: 10px rgb(245,245,245) solid;
+    border-radius: 10px;
+  }
+
+  
+
+  
+  #GestionNotas{
+    margin-top: 30px;
+    display: flex;
+    width: 100%; /* Abarcar todo el ancho de la página */
+    justify-content:center; /* Para alinear horizontalmente al centro */
+    align-items: center; /* Para alinear verticalmente al centro */
+    flex-direction:row; /* Cambia la dirección del flujo a vertical */
+    padding: 0;
+  }
+
+
+  #agregarNotas
+   {
+    width: 1000px; /* Ancho deseado */
+    height: 710px; /* Altura deseada */
+    background-color: rgb(245,245,245); /* Color de fondo */
+    margin: 10px; /* Margen entre los dos divs */
+    border: 10px rgb(245,245,245) solid;
+    border-radius: 10px;
+  }
+
+  
+  #tablaNotas {
+    width: 1000px; /* Ancho deseado */
+    height: 710px; /* Altura deseada */
+    background-color: rgb(245,245,245); /* Color de fondo */
+    margin: 10px; /* Margen entre los dos divs */
+    border: 10px rgb(245,245,245) solid;
+    border-radius: 10px;
+  }
