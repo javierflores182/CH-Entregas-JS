@@ -1,15 +1,28 @@
 // Array global para almacenar los estudiantes
-let estudiantes = JSON.parse(localStorage.getItem("estudiantes")) || [];
+let estudiantes = JSON.parse(localStorage.getItem("estudiantes")) || [
+    {DNI: '21', nombre: 'Javier', apellido: 'Flores'},
+    {DNI: '22', nombre: 'cinthia', apellido: 'lopez'}, 
+    {DNI: '23', nombre: 'Arelys', apellido: 'Luque'},
+    {DNI: '24', nombre: 'Erika', apellido: 'Ramos'}];
 
-// Array global para almacenar los estudiantes
-let calificaciones = JSON.parse(localStorage.getItem("calificaciones")) || [];
+
+// Array global para almacenar las calificaciones
+let calificaciones = JSON.parse(localStorage.getItem("calificaciones")) || [
+    {DNI: '24', nombre: 'Erika Ramos', nota1: '100', nota2: '97', nota3: '85',nota4:'88.5',notaFinal: '92.63',observacion: 'Sobresaliente(S)'},
+    {DNI: '21', nombre: 'Javier Flores', nota1: '87.5', nota2: '87.5', nota3: '98.6',nota4:'97',notaFinal: '92.65',observacion: 'Sobresaliente(S)'},
+    {DNI: '22', nombre: 'cinthia lopez', nota1: '69', nota2: '75', nota3: '67',nota4:'57',notaFinal: '67.00',observacion: 'Bueno(B)'}, 
+    {DNI: '23', nombre: 'Arelys Luque', nota1: '69', nota2: '54', nota3: '55',nota4:'40',notaFinal: '54.50',observacion: 'Reprobado(R)'}];
+
+//variable que almacena la posicion del valor seleccionado a traves del combo.
+let posicionArray=-1
 
 
-// Llamar a la función para llenar la tabla cuando la página cargue
+// Llamar a la función para llenar la tabla y el combobox cuando la página cargue
 window.addEventListener('load',()=>{
     llenarCombo()
     llenarTabla()
 } );
+
 
 
 // Función para llenar la combo box con los datos de estudiantes
@@ -19,12 +32,15 @@ function llenarCombo() {
     estudiantes.forEach(estudiante => {
         const elementoOption = document.createElement('option');
         elementoOption.textContent = estudiante.nombre + ' '+estudiante.apellido ;
-        elementoOption.value = estudiante.DNI; // Opcional: puedes establecer un valor diferente si lo deseas
+        elementoOption.value = estudiante.DNI;
         select.appendChild(elementoOption);
+        select.selectedIndex=-1
     });
 }
 
-// Función para crear un nuevo estudiante y agregarlo al arreglo de estudiantes
+
+
+// Función para crear una nueva calificacion y agregarlo al arreglo de notas
 function crearCalificacion(DNI, nombre, nota1,nota2,nota3,nota4,promedio,obs) {
     const calificacion = {
         DNI: DNI,
@@ -41,12 +57,25 @@ function crearCalificacion(DNI, nombre, nota1,nota2,nota3,nota4,promedio,obs) {
 }
 
 
+// Función para editar una calificacion existente.
+function editarCalificacion(DNI, nombre, nota1,nota2,nota3,nota4,promedio,obs,posicion) {
+   calificaciones[posicion].DNI=DNI
+   calificaciones[posicion].nombre=nombre
+   calificaciones[posicion].nota1=nota1
+   calificaciones[posicion].nota2=nota2
+   calificaciones[posicion].nota3=nota3
+   calificaciones[posicion].nota4=nota4
+   calificaciones[posicion].notaFinal=promedio
+   calificaciones[posicion].observacion=obs
+   localStorage.setItem("calificaciones",JSON.stringify(calificaciones));
+}
 
 
+
+//funciona para calcular el promedio al cambiar un valor de las notas
 // Obtener todos los elementos de clase "notas"
 let notasInputs = document.querySelectorAll(".notas");
 console.log("notasInputs",notasInputs);
-
 // Agregar un evento "change" a cada uno
 notasInputs.forEach(function(input) {
     input.addEventListener("change", function() {
@@ -92,13 +121,16 @@ function observacion(notaFinal){
 }
 
 
-//Funcion que verifica la existencia del estudiante
+
+//Funcion que verifica la existencia de la calificacion
 function existeCalificacion(DNI){
     const existe = (calificaciones.find((estudiante)=>estudiante.DNI===DNI))? true : false
     return existe
 }
 
 
+
+//guarda o edita segun sea la situacion al presionar el boton guardar.
 const botonGuardar =document.getElementById('guardar')
 botonGuardar.addEventListener("click", ()=>{
 
@@ -106,20 +138,20 @@ botonGuardar.addEventListener("click", ()=>{
     const camposForm = document.querySelectorAll('#GestionNotas #agregarNotas .objetos');
 
     camposForm.forEach(elemento => {
-        console.log(camposForm[0].options[camposForm[0].selectedIndex].text)
-        contieneDatos = (elemento.value==="") ? false : true
-        if (contieneDatos===false){
-            return
+        if (elemento.value === "" || parseFloat(elemento.value) < 0 || parseFloat(elemento.value) > 100) {
+            contieneDatos = false;
+            return;
         }
      });
 
     if (contieneDatos){
         if(existeCalificacion(camposForm[0].value)){
-            alert("El registro que esta intentando ingresar ya existe.")
+            editarCalificacion(camposForm[0].value,camposForm[0].options[camposForm[0].selectedIndex].text, camposForm[1].value, camposForm[2].value, camposForm[3].value, camposForm[4].value, camposForm[5].value, camposForm[6].value,posicionArray) 
+            llenarTabla()
         }
         else{
             crearCalificacion(camposForm[0].value,camposForm[0].options[camposForm[0].selectedIndex].text, camposForm[1].value, camposForm[2].value, camposForm[3].value, camposForm[4].value, camposForm[5].value, camposForm[6].value) 
-            //llenarTabla()
+            llenarTabla()
         }
     }
 })
@@ -127,7 +159,7 @@ botonGuardar.addEventListener("click", ()=>{
 
 
 
-// Función para llenar la tabla con los datos de estudiantes
+// Función para llenar la tabla con los datos de las calificaciones
 function llenarTabla() {
     const tbody = document.querySelector('#tablaNotas tbody');
     calificaciones.forEach(calificacion => {
@@ -145,6 +177,48 @@ function llenarTabla() {
         `;
         tbody.appendChild(fila);
     });
+}
+
+
+
+
+// llama a la funcion para obtener la posicion del array seleccionado en caso de existir
+const estudianteSeleccionado = document.querySelector('#agregarNotas select');
+estudianteSeleccionado.addEventListener("change", function(event) {
+    posicionArray=obtenerPosInformacionArray(event.target.value)
+    obtenerPosInformacion(posicionArray)
+});
+
+
+// funcion para obtener la posicion del array seleccionado en caso de existir
+function obtenerPosInformacionArray(DNI){
+    const buscarCalificiaciones = calificaciones.findIndex(function(cal) {
+        return cal.DNI === DNI;
+    });
+    return buscarCalificiaciones
+}
+
+
+//despliega los valores en cuadros de texto.
+function obtenerPosInformacion(posicion){
+    const camposForm = document.querySelectorAll('#GestionNotas #agregarNotas .form-control');
+    if (posicion !==-1){
+        camposForm[0].value=calificaciones[posicion].nota1
+        camposForm[1].value=calificaciones[posicion].nota2
+        camposForm[2].value=calificaciones[posicion].nota3
+        camposForm[3].value=calificaciones[posicion].nota4
+        camposForm[4].value=calificaciones[posicion].notaFinal
+        camposForm[5].value=calificaciones[posicion].observacion   
+    }
+    else{
+        camposForm[0].value=""
+        camposForm[1].value=""
+        camposForm[2].value=""
+        camposForm[3].value=""
+        camposForm[4].value=""
+        camposForm[5].value=""
+    }
+
 }
 
 // // Función para crear un nuevo estudiante y agregarlo al arreglo de estudiantes

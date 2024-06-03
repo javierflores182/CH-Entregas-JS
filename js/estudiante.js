@@ -1,5 +1,9 @@
 // Array global para almacenar los estudiantes
-let estudiantes = JSON.parse(localStorage.getItem("estudiantes")) || [];
+let estudiantes = JSON.parse(localStorage.getItem("estudiantes")) || [
+    {DNI: '21', nombre: 'Javier', apellido: 'Flores'},
+    {DNI: '22', nombre: 'cinthia', apellido: 'lopez'}, 
+    {DNI: '23', nombre: 'Arelys', apellido: 'Luque'},
+    {DNI: '24', nombre: 'Erika', apellido: 'Ramos'}];
 
 
 // Llamar a la función para llenar la tabla cuando la página cargue
@@ -18,6 +22,7 @@ function crearEstudiante(DNI, nombre, apellido) {
 }
 
 
+
 //Funcion que verifica la existencia del estudiante
 function existeEstudiante(DNI){
     const existe = (estudiantes.find((estudiante)=>estudiante.DNI===DNI))? true : false
@@ -25,7 +30,7 @@ function existeEstudiante(DNI){
 }
 
 
-
+//llama a la funcion guardar cuando el usuario presiona el boton guardar.
 const botonGuardar =document.getElementById('guardar')
 botonGuardar.addEventListener("click", ()=>{
     let contieneDatos=true
@@ -46,6 +51,7 @@ botonGuardar.addEventListener("click", ()=>{
         }
     }
 })
+
 
 
 // Función para llenar la tabla con los datos de estudiantes

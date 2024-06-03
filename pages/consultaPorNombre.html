@@ -48,50 +48,26 @@
 
 
     <!-- Inicio: gestion del ingreso de datos -->
-    <div id="GestionNotas">
+    <div id="GestionConsultaObs">
       <!-- Inicio: gestion del ingreso de datos:encabezado -->
-        <div id="agregarNotas">
+        <div id="seleccionarObs">
             <form>
                 <fieldset >
-                  <legend>Ingrese la información de las calificaciones</legend>
-                  <div class="mb-3">
-                    <label for="estudiantesSelect" class="form-label">Seleccione alumno</label>
-                    <select id="estudiantesSelect" class="form-select objetos" required>
-                      <!-- <option>Javier Flores</option> -->
-                    </select>
-                  </div>
-                  <div class="mb-3">
-                    <label for="clase1" class="form-label">Español:</label>
-                    <input type="number" step="any" min="0" max="100" id="clase1" class="form-control notas objetos" placeholder="0.00" required>
-                  </div>
-                  <div class="mb-3">
-                    <label for="clase2" class="form-label">Matematicas:</label>
-                    <input type="number" step="any" min="0" max="100" id="clase2" class="form-control notas objetos" placeholder="0.00" required>
-                  </div>
-                  <div class="mb-3">
-                    <label for="clase3" class="form-label">Sociales:</label>
-                    <input type="number" step="any" min="0" max="100" id="clase3" class="form-control notas objetos" placeholder="0.00" required>
-                  </div>
-                  <div class="mb-3">
-                    <label for="clase4" class="form-label">Ingles:</label>
-                    <input type="number" step="any" min="0" max="100" id="clase4" class="form-control notas objetos" placeholder="0.00" required>
-                  </div>
-                  <div class="mb-3">
-                    <label for="promedio" class="form-label">Promedio:</label>
-                    <input type="number" step="any" min="0" max="100" id="promedio" class="form-control objetos" placeholder="0.00" required disabled>
-                  </div>
-                  <div class="mb-3">
-                    <label for="obs" class="form-label">Obs:</label>
-                    <input type="text" id="obs" class="form-control objetos" placeholder="Observacion" required disabled>
-                  </div>
-                  <button id="guardar" type="submit" class="btn btn-primary">Guardar</button>
+                    <legend>Ingrese la información del estudiante</legend>
+                    <div class="mb-3">
+                      <label for="nombre" class="form-label">Ingrese el nombre del alumno:</label>
+                      <input type="text" id="nombre" class="form-control" placeholder="Nombres" required>
+                    </div>
+
+                  <button id="quitarFiltro"  class="btn btn-danger">Quitar filtros</button>
+
                 </fieldset>
               </form>
         </div>
         <!-- Fin: gestion del ingreso de datos:encabezado -->
 
         <!-- Inicio: gestion del ingreso de datos:detalle -->
-        <div id="tablaNotas">
+        <div id="tablaDetalleObs">
             <table class="table">
                 <thead>
                   <tr>
@@ -106,7 +82,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <!-- <tr>
+                  <tr>
                     <th scope="row">1</th>
                     <td>Mark Otto</td>
                     <td>0.00</td>
@@ -125,7 +101,7 @@
                     <td>0.00</td>
                     <td>0.00</td>
                     <td>MB</td>
-                  </tr> -->
+                  </tr>
                 </tbody>
               </table>
         </div>
@@ -133,7 +109,7 @@
     </div>
     <!-- Inicio: gestion del ingreso de datos -->
 
-    <script src="/js/notas.js"></script>
+    <script src="/js/consultaPorNombre.js"></script>
 </body>
 
 
