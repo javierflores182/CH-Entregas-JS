@@ -14,7 +14,6 @@ function crearEstudiante(DNI, nombre, apellido) {
          apellido: apellido
     };
     estudiantes.push(estudiante);
-    alert(estudiantes.length)
     localStorage.setItem("estudiantes",JSON.stringify(estudiantes));
 }
 
@@ -49,24 +48,20 @@ botonGuardar.addEventListener("click", ()=>{
 })
 
 
+// Función para llenar la tabla con los datos de estudiantes
+function llenarTabla() {
+    const tbody = document.querySelector('#tablaAlumno tbody');
+    estudiantes.forEach(estudiante => {
+        const fila = document.createElement('tr');
 
-
-    // Función para llenar la tabla con los datos de estudiantes
-    function llenarTabla() {
-        const tbody = document.querySelector('#tablaAlumno tbody');
-
-        estudiantes.forEach(estudiante => {
-            const fila = document.createElement('tr');
-
-            fila.innerHTML = `
-                <th scope="row">${estudiante.DNI}</th>
-                <td>${estudiante.nombre}</td>
-                <td>${estudiante.apellido}</td>
-            `;
-
-            tbody.appendChild(fila);
-        });
-    }
+        fila.innerHTML = `
+            <th scope="row">${estudiante.DNI}</th>
+            <td>${estudiante.nombre}</td>
+            <td>${estudiante.apellido}</td>
+        `;
+        tbody.appendChild(fila);
+    });
+}
 
 
 

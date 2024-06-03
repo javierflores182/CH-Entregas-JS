@@ -9,12 +9,11 @@
     <title>Control de calificaciones</title>
 </head>
 <body>
-    <!-- <script src="/js/index.js"></script> -->
 
     <!-- cabezote -->
     <header>
         <div id="logo">
-            <img src="../images/Milogo2.png"  alt="logo de pagina de Javier Flores">
+            <img src="../images/Milogo3_.png"  alt="logo de pagina de Javier Flores">
         </div>
     </header>
     <!-- fin cabezote -->
@@ -59,36 +58,36 @@
                 <fieldset >
                   <legend>Ingrese la información de las calificaciones</legend>
                   <div class="mb-3">
-                    <label for="disabledSelect" class="form-label">Seleccione alumno</label>
-                    <select id="disabledSelect" class="form-select">
-                      <option>Javier Flores</option>
+                    <label for="estudiantesSelect" class="form-label">Seleccione alumno</label>
+                    <select id="estudiantesSelect" class="form-select objetos" required>
+                      <!-- <option>Javier Flores</option> -->
                     </select>
                   </div>
                   <div class="mb-3">
-                    <label for="disabledTextInput" class="form-label">Español:</label>
-                    <input type="text" id="disabledTextInput" class="form-control" placeholder="0.00">
+                    <label for="clase1" class="form-label">Español:</label>
+                    <input type="text" id="clase1" class="form-control notas objetos" placeholder="0.00" required>
                   </div>
                   <div class="mb-3">
-                    <label for="disabledTextInput" class="form-label">Matematicas:</label>
-                    <input type="text" id="disabledTextInput" class="form-control" placeholder="0.00">
+                    <label for="clase2" class="form-label">Matematicas:</label>
+                    <input type="text" id="clase2" class="form-control notas objetos" placeholder="0.00" required>
                   </div>
                   <div class="mb-3">
-                    <label for="disabledTextInput" class="form-label">Sociales:</label>
-                    <input type="text" id="disabledTextInput" class="form-control" placeholder="0.00">
+                    <label for="clase3" class="form-label">Sociales:</label>
+                    <input type="text" id="clase3" class="form-control notas objetos" placeholder="0.00" required>
                   </div>
                   <div class="mb-3">
-                    <label for="disabledTextInput" class="form-label">Ingles:</label>
-                    <input type="text" id="disabledTextInput" class="form-control" placeholder="0.00">
+                    <label for="clase4" class="form-label">Ingles:</label>
+                    <input type="text" id="clase4" class="form-control notas objetos" placeholder="0.00" required>
                   </div>
                   <div class="mb-3">
-                    <label for="disabledTextInput" class="form-label">Promedio:</label>
-                    <input type="text" id="disabledTextInput" class="form-control" placeholder="0.00">
+                    <label for="promedio" class="form-label">Promedio:</label>
+                    <input type="text" id="promedio" class="form-control objetos" placeholder="0.00" required disabled>
                   </div>
                   <div class="mb-3">
-                    <label for="disabledTextInput" class="form-label">Obs:</label>
-                    <input type="text" id="disabledTextInput" class="form-control" placeholder="Observacion">
+                    <label for="obs" class="form-label">Obs:</label>
+                    <input type="text" id="obs" class="form-control objetos" placeholder="Observacion" required disabled>
                   </div>
-                  <button type="submit" class="btn btn-primary">Guardar</button>
+                  <button id="guardar" type="submit" class="btn btn-primary">Guardar</button>
                 </fieldset>
               </form>
         </div>
@@ -105,8 +104,8 @@
                     <th scope="col">Matematicas</th>
                     <th scope="col">Sociales</th>
                     <th scope="col">Ingles</th>
-                    <th scope="col">Obs</th>
                     <th scope="col">Promedio</th>
+                    <th scope="col">Obs</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -137,6 +136,7 @@
     </div>
     <!-- Inicio: gestion del ingreso de datos -->
 
+    <script src="/js/notas.js"></script>
 </body>
 
 
