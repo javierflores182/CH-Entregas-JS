@@ -1,17 +1,68 @@
 // Array global para almacenar los estudiantes
-let estudiantes = JSON.parse(localStorage.getItem("estudiantes")) || [
-    {DNI: '21', nombre: 'Javier', apellido: 'Flores'},
-    {DNI: '22', nombre: 'cinthia', apellido: 'lopez'}, 
-    {DNI: '23', nombre: 'Arelys', apellido: 'Luque'},
-    {DNI: '24', nombre: 'Erika', apellido: 'Ramos'}];
+// let estudiantes = JSON.parse(localStorage.getItem("estudiantes")) || [
+//     {DNI: '21', nombre: 'Javier', apellido: 'Flores'},
+//     {DNI: '22', nombre: 'cinthia', apellido: 'lopez'}, 
+//     {DNI: '23', nombre: 'Arelys', apellido: 'Luque'},
+//     {DNI: '24', nombre: 'Erika', apellido: 'Ramos'}];
+
+let estudiantes;
+
+async function inicializarEstudiantes() {
+    // Verificar si hay información en el localStorage
+    estudiantes = JSON.parse(localStorage.getItem("estudiantes"));
+
+    // Si no hay información, cargar los datos desde estudiantes.json
+    if (!estudiantes) {
+        try {
+            const response = await fetch('../data/estudiantes.json');
+            if (!response.ok) {
+                throw new Error('Error al cargar el archivo JSON');
+            }
+            estudiantes = await response.json();
+
+            // Guardar los datos en localStorage
+            localStorage.setItem("estudiantes", JSON.stringify(estudiantes));
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+    // Ahora la variable estudiantes tiene los datos, ya sea desde el localStorage o desde el JSON
+    console.log(estudiantes);
+}
 
 
 // Array global para almacenar las calificaciones
-let calificaciones = JSON.parse(localStorage.getItem("calificaciones")) || [
-    {DNI: '24', nombre: 'Erika Ramos', nota1: '100', nota2: '97', nota3: '85',nota4:'88.5',notaFinal: '92.63',observacion: 'Sobresaliente(S)'},
-    {DNI: '21', nombre: 'Javier Flores', nota1: '87.5', nota2: '87.5', nota3: '98.6',nota4:'97',notaFinal: '92.65',observacion: 'Sobresaliente(S)'},
-    {DNI: '22', nombre: 'cinthia lopez', nota1: '69', nota2: '75', nota3: '67',nota4:'57',notaFinal: '67.00',observacion: 'Bueno(B)'}, 
-    {DNI: '23', nombre: 'Arelys Luque', nota1: '69', nota2: '54', nota3: '55',nota4:'40',notaFinal: '54.50',observacion: 'Reprobado(R)'}];
+// let calificaciones = JSON.parse(localStorage.getItem("calificaciones")) || [
+//     {DNI: '24', nombre: 'Erika Ramos', nota1: '100', nota2: '97', nota3: '85',nota4:'88.5',notaFinal: '92.63',observacion: 'Sobresaliente(S)'},
+//     {DNI: '21', nombre: 'Javier Flores', nota1: '87.5', nota2: '87.5', nota3: '98.6',nota4:'97',notaFinal: '92.65',observacion: 'Sobresaliente(S)'},
+//     {DNI: '22', nombre: 'cinthia lopez', nota1: '69', nota2: '75', nota3: '67',nota4:'57',notaFinal: '67.00',observacion: 'Bueno(B)'}, 
+//     {DNI: '23', nombre: 'Arelys Luque', nota1: '69', nota2: '54', nota3: '55',nota4:'40',notaFinal: '54.50',observacion: 'Reprobado(R)'}];
+
+async function inicializarCalificaciones() {
+    // Verificar si hay información en el localStorage
+    calificaciones = JSON.parse(localStorage.getItem("calificaciones"));
+
+    // Si no hay información, cargar los datos desde estudiantes.json
+    if (!calificaciones) {
+        try {
+            const response = await fetch('../data/notas.json');
+            if (!response.ok) {
+                throw new Error('Error al cargar el archivo JSON');
+            }
+            calificaciones = await response.json();
+
+            // Guardar los datos en localStorage
+            localStorage.setItem("calificaciones", JSON.stringify(calificaciones));
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+    // Ahora la variable estudiantes tiene los datos, ya sea desde el localStorage o desde el JSON
+    console.log(estudiantes);
+}
+
 
 //variable que almacena la posicion del valor seleccionado a traves del combo.
 let posicionArray=-1
@@ -19,7 +70,9 @@ let posicionArray=-1
 
 // Llamar a la función para llenar la tabla y el combobox cuando la página cargue
 window.addEventListener('load',()=>{
+    inicializarEstudiantes()
     llenarCombo()
+    inicializarCalificaciones()
     llenarTabla()
 } );
 
@@ -167,7 +220,7 @@ function llenarTabla() {
 
         fila.innerHTML = `
             <th scope="row">${calificacion.DNI}</th>
-            <td>${calificacion.nombre}</td>
+            <td>${calificacion.nombre} ${calificacion.apellido} </td>
             <td>${calificacion.nota1}</td>
             <td>${calificacion.nota2}</td>
             <td>${calificacion.nota3}</td>

@@ -1,0 +1,22 @@
+[
+    { "DNI": "21", "nombre": "Javier", "apellido": "Flores" },
+    { "DNI": "22", "nombre": "Cinthia", "apellido": "Lopez" },
+    { "DNI": "23", "nombre": "Arelys", "apellido": "Luque" },
+    { "DNI": "24", "nombre": "Erika", "apellido": "Ramos" },
+    { "DNI": "25", "nombre": "Miguel", "apellido": "Hernández" },
+    { "DNI": "26", "nombre": "Lucía", "apellido": "González" },
+    { "DNI": "27", "nombre": "Carlos", "apellido": "Martínez" },
+    { "DNI": "28", "nombre": "Ana", "apellido": "García" },
+    { "DNI": "29", "nombre": "José", "apellido": "Rodríguez" },
+    { "DNI": "30", "nombre": "María", "apellido": "Fernández" },
+    { "DNI": "31", "nombre": "Fernando", "apellido": "Pérez" },
+    { "DNI": "32", "nombre": "Laura", "apellido": "Sánchez" },
+    { "DNI": "33", "nombre": "Jorge", "apellido": "Ramírez" },
+    { "DNI": "34", "nombre": "Elena", "apellido": "Torres" },
+    { "DNI": "35", "nombre": "David", "apellido": "Vargas" },
+    { "DNI": "36", "nombre": "Sofía", "apellido": "Reyes" },
+    { "DNI": "37", "nombre": "Andrés", "apellido": "Ortiz" },
+    { "DNI": "38", "nombre": "Claudia", "apellido": "Morales" },
+    { "DNI": "39", "nombre": "Sergio", "apellido": "Hidalgo" },
+    { "DNI": "40", "nombre": "Isabel", "apellido": "Ríos" }
+]

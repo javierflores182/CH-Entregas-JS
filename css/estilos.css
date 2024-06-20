@@ -41,9 +41,9 @@ header{
   #GestionAlumnos{
     margin-top: 30px;
     display: flex;
-    width: 100%; /* Abarcar todo el ancho de la página */
+    width: 100%;            /* Abarcar todo el ancho de la página */
     justify-content:center; /* Para alinear horizontalmente al centro */
-    align-items: center; /* Para alinear verticalmente al centro */
+    align-items: center;    /* Para alinear verticalmente al centro */
     /* background-color: red; */
     flex-direction: column; /* Cambia la dirección del flujo a vertical */
     padding: 0;
@@ -65,7 +65,7 @@ header{
   #tablaAlumno {
     padding: 20px;
     width: 1000px; /* Ancho deseado */
-    height: 500px; /* Altura deseada */
+    height: auto; /* Altura deseada */
     background-color: rgb(245,245,245); /* Color de fondo */
     margin: 10px; /* Margen entre los dos divs */
     border: 10px rgb(245,245,245) solid;
@@ -99,7 +99,7 @@ header{
   
   #tablaNotas {
     width: 1000px; /* Ancho deseado */
-    height: 710px; /* Altura deseada */
+    height: auto; /* Altura deseada */
     background-color: rgb(245,245,245); /* Color de fondo */
     margin: 10px; /* Margen entre los dos divs */
     border: 10px rgb(245,245,245) solid;
@@ -134,7 +134,7 @@ header{
   
   #tablaDetalleObs {
     width: 1000px; /* Ancho deseado */
-    height: 700px; /* Altura deseada */
+    height: auto; /* Altura deseada */
     background-color: rgb(245,245,245); /* Color de fondo */
     margin: 10px; /* Margen entre los dos divs */
     border: 10px rgb(245,245,245) solid;
