@@ -111,8 +111,8 @@ botonGuardar.addEventListener("click",  function(event){
               return
           }
     });
-    if (!contieneDatos){
-        if(existeEstudiante(camposForm[0].value)){
+    if (contieneDatos){
+        //if(existeEstudiante(camposForm[0].value)){
         //     //alert("El registro que esta intentando ingresar ya existe.")
         //     editarEstudiante(camposForm[0].value, camposForm[1].value, camposForm[2].value)
         //     llenarTabla()
@@ -121,7 +121,7 @@ botonGuardar.addEventListener("click",  function(event){
             crearEstudiante(camposForm[0].value, camposForm[1].value, camposForm[2].value) 
             llenarTabla()
             mensaje(1)
-        }
+        //}
     }
 })
 

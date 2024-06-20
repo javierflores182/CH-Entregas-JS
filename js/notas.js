@@ -141,7 +141,7 @@ let notasInputs = document.querySelectorAll(".notas");
 console.log("notasInputs",notasInputs);
 // Agregar un evento "change" a cada uno
 notasInputs.forEach(function(input) {
-    input.addEventListener("change", function() {
+    input.addEventListener("keyup", function() {
         // Obtener los valores de las notas
         let clase1= (isNaN(parseFloat(document.getElementById("clase1").value)))?0:parseFloat(document.getElementById("clase1").value);
         let clase2= (isNaN(parseFloat(document.getElementById("clase2").value)))?0:parseFloat(document.getElementById("clase2").value);
@@ -218,7 +218,10 @@ function existeCalificacion(DNI){
 
 //guarda o edita segun sea la situacion al presionar el boton guardar.
 const botonGuardar =document.getElementById('guardar')
-botonGuardar.addEventListener("click", ()=>{
+botonGuardar.addEventListener("click", function(event){
+
+    //esta linea evita que se recargue la pagina.
+    event.preventDefault();
 
     let contieneDatos=true
     const camposForm = document.querySelectorAll('#GestionNotas #agregarNotas .objetos');
@@ -230,8 +233,8 @@ botonGuardar.addEventListener("click", ()=>{
         }
      });
 
-    if (!contieneDatos){
-        if(existeCalificacion(camposForm[0].value)){
+    if (contieneDatos){
+        //if(existeCalificacion(camposForm[0].value)){
         //     editarCalificacion(camposForm[0].value,camposForm[0].options[camposForm[0].selectedIndex].text, camposForm[1].value, camposForm[2].value, camposForm[3].value, camposForm[4].value, camposForm[5].value, camposForm[6].value,posicionArray) 
         //     llenarTabla()
         // }
@@ -239,7 +242,7 @@ botonGuardar.addEventListener("click", ()=>{
             crearCalificacion(camposForm[0].value,camposForm[0].options[camposForm[0].selectedIndex].text, camposForm[1].value, camposForm[2].value, camposForm[3].value, camposForm[4].value, camposForm[5].value, camposForm[6].value) 
             llenarTabla()
             mensaje(1)
-        }
+        //}
     }
 })
 
@@ -299,7 +302,7 @@ function llenarTabla() {
 
         fila.innerHTML = `
             <th scope="row">${calificacion.DNI}</th>
-            <td>${calificacion.nombre} ${calificacion.apellido} </td>
+            <td>${calificacion.nombre}</td>
             <td>${calificacion.nota1}</td>
             <td>${calificacion.nota2}</td>
             <td>${calificacion.nota3}</td>
