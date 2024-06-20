@@ -84,7 +84,10 @@
                     <label for="obs" class="form-label">Obs:</label>
                     <input type="text" id="obs" class="form-control objetos" placeholder="Observacion" required disabled>
                   </div>
-                  <button id="guardar" type="submit" class="btn btn-primary">Guardar</button>
+                  <!-- <button id="guardar" type="submit" class="btn btn-primary">Guardar</button> -->
+                  <button id="guardar"  class="btn btn-primary botones" >Guardar</button>
+                  <button id="editar"   class="btn btn-secondary botones" disabled>Editar</button>
+                  <button id="eliminar" class="btn btn-danger botones" disabled>Eliminar</button>
                 </fieldset>
               </form>
         </div>
@@ -132,7 +135,8 @@
         <!-- Fin: gestion del ingreso de datos:encabezado -->
     </div>
     <!-- Inicio: gestion del ingreso de datos -->
-
+     
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/js/notas.js"></script>
 </body>
 

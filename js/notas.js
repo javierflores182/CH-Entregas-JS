@@ -7,6 +7,8 @@
 
 let estudiantes;
 
+
+//funcion para obtener la informacion desde JSON (estudiantes)
 async function inicializarEstudiantes() {
     // Verificar si hay información en el localStorage
     estudiantes = JSON.parse(localStorage.getItem("estudiantes"));
@@ -39,6 +41,7 @@ async function inicializarEstudiantes() {
 //     {DNI: '22', nombre: 'cinthia lopez', nota1: '69', nota2: '75', nota3: '67',nota4:'57',notaFinal: '67.00',observacion: 'Bueno(B)'}, 
 //     {DNI: '23', nombre: 'Arelys Luque', nota1: '69', nota2: '54', nota3: '55',nota4:'40',notaFinal: '54.50',observacion: 'Reprobado(R)'}];
 
+//funcion para obtener la informacion desde JSON (calificaciones)
 async function inicializarCalificaciones() {
     // Verificar si hay información en el localStorage
     calificaciones = JSON.parse(localStorage.getItem("calificaciones"));
@@ -64,24 +67,32 @@ async function inicializarCalificaciones() {
 }
 
 
+
 //variable que almacena la posicion del valor seleccionado a traves del combo.
 let posicionArray=-1
 
 
+
 // Llamar a la función para llenar la tabla y el combobox cuando la página cargue
-window.addEventListener('load',()=>{
-    inicializarEstudiantes()
+window.addEventListener('load',async () =>{
+     //llama a la funcion para habilitar/deshabilitar los botones.
+     controlBotones(true,false,false)
+     // Llamar a la función para inicializar los estudiantes
+    await inicializarEstudiantes()
+    //llama a la funcion para llenar el combo de estudiantes
     llenarCombo()
-    inicializarCalificaciones()
+     // Llamar a la función para inicializar las calificaciones
+    await inicializarCalificaciones()
+    //llama a la funcion para llenar de informacion la tabla.
     llenarTabla()
 } );
+
 
 
 
 // Función para llenar la combo box con los datos de estudiantes
 function llenarCombo() {
     const select = document.querySelector('#agregarNotas select');
-
     estudiantes.forEach(estudiante => {
         const elementoOption = document.createElement('option');
         elementoOption.textContent = estudiante.nombre + ' '+estudiante.apellido ;
@@ -90,7 +101,6 @@ function llenarCombo() {
         select.selectedIndex=-1
     });
 }
-
 
 
 // Función para crear una nueva calificacion y agregarlo al arreglo de notas
@@ -174,6 +184,29 @@ function observacion(notaFinal){
 }
 
 
+function mensaje(proceso){
+    //proceso=1=almacenar/editar
+    //proceso=2=eliminar
+    let titulo,texto,icono
+    if(proceso===1){
+        titulo="Calificación almacenada!"
+        texto="El registro se almaceno de manera correcta!"
+        icono="success"
+    }
+    else{
+        titulo="Calificación eliminada!"
+        texto="El registro se elimino de manera correcta!"
+        icono="error"
+    }
+    //codigo se sweet alert
+    Swal.fire({
+        title: titulo,
+        text: texto,
+        icon: icono
+    }).then(() => {
+        location.reload();
+    });
+}
 
 //Funcion que verifica la existencia de la calificacion
 function existeCalificacion(DNI){
@@ -197,19 +230,65 @@ botonGuardar.addEventListener("click", ()=>{
         }
      });
 
-    if (contieneDatos){
+    if (!contieneDatos){
         if(existeCalificacion(camposForm[0].value)){
-            editarCalificacion(camposForm[0].value,camposForm[0].options[camposForm[0].selectedIndex].text, camposForm[1].value, camposForm[2].value, camposForm[3].value, camposForm[4].value, camposForm[5].value, camposForm[6].value,posicionArray) 
-            llenarTabla()
-        }
-        else{
+        //     editarCalificacion(camposForm[0].value,camposForm[0].options[camposForm[0].selectedIndex].text, camposForm[1].value, camposForm[2].value, camposForm[3].value, camposForm[4].value, camposForm[5].value, camposForm[6].value,posicionArray) 
+        //     llenarTabla()
+        // }
+        // else{
             crearCalificacion(camposForm[0].value,camposForm[0].options[camposForm[0].selectedIndex].text, camposForm[1].value, camposForm[2].value, camposForm[3].value, camposForm[4].value, camposForm[5].value, camposForm[6].value) 
             llenarTabla()
+            mensaje(1)
         }
     }
 })
 
 
+//llama a la funcion guardar cuando el usuario presiona el boton guardar.
+const botonEditar =document.getElementById('editar')
+botonEditar.addEventListener("click",  function(event){
+    //esta linea evita que se recargue la pagina.
+    event.preventDefault();
+
+    let contieneDatos=true
+    const camposForm = document.querySelectorAll('#GestionNotas #agregarNotas .objetos');
+    camposForm.forEach(elemento => {
+        contieneDatos = (elemento.value==="") ? false : true
+          if (contieneDatos===false){
+              return
+          }
+    });
+    if (contieneDatos){
+        if(existeCalificacion(camposForm[0].value)){
+            editarCalificacion(camposForm[0].value,camposForm[0].options[camposForm[0].selectedIndex].text, camposForm[1].value, camposForm[2].value, camposForm[3].value, camposForm[4].value, camposForm[5].value, camposForm[6].value,posicionArray) 
+            llenarTabla()
+            mensaje(1)
+        }
+    }
+})
+
+
+//llama a la funcion guardar cuando el usuario presiona el boton guardar.
+const botonEliminar =document.getElementById('eliminar')
+botonEliminar.addEventListener("click",  function(event){
+    //esta linea evita que se recargue la pagina.
+    event.preventDefault();
+    Swal.fire({
+        title: "Desea eliminar la informacion del estudiante?",
+        showDenyButton: true,
+        showCancelButton: false,
+        confirmButtonText: "Si",
+        denyButtonText: `No`
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+            eliminarCalificaciones(posicionArray)
+        } 
+        // else if (result.isDenied) {
+        //   Swal.fire("Changes are not saved", "", "info");
+        // }
+      });
+    })
 
 
 // Función para llenar la tabla con los datos de las calificaciones
@@ -262,6 +341,7 @@ function obtenerPosInformacion(posicion){
         camposForm[3].value=calificaciones[posicion].nota4
         camposForm[4].value=calificaciones[posicion].notaFinal
         camposForm[5].value=calificaciones[posicion].observacion   
+        controlBotones(false,true,true)
     }
     else{
         camposForm[0].value=""
@@ -270,9 +350,27 @@ function obtenerPosInformacion(posicion){
         camposForm[3].value=""
         camposForm[4].value=""
         camposForm[5].value=""
+        controlBotones(true,false,false)
     }
-
 }
+
+//FUNCION QUE HABILITA/DESHABILITA LOS BOTONES SEGUN EL CASO.
+function controlBotones(guardar,editar,eliminar){
+    const botonesForm = document.querySelectorAll('#GestionNotas #agregarNotas .botones');
+    guardar ? botonesForm[0].removeAttribute("disabled",guardar):botonesForm[0].setAttribute("disabled",guardar)
+    editar ? botonesForm[1].removeAttribute("disabled",editar):botonesForm[1].setAttribute("disabled",editar)
+    eliminar ? botonesForm[2].removeAttribute("disabled",eliminar):botonesForm[2].setAttribute("disabled",eliminar)
+}
+
+
+ // Función para editar un estudiante existente.
+ function eliminarCalificaciones(posicion) {
+    calificaciones.splice(posicion, 1);
+    // Actualizar el localStorage
+    localStorage.setItem("calificaciones", JSON.stringify(calificaciones));
+    mensaje(2)
+ }
+
 
 // // Función para crear un nuevo estudiante y agregarlo al arreglo de estudiantes
 // function crearEstudiante(nombre, cantidadNotas, notas) {
@@ -429,4 +527,3 @@ function obtenerPosInformacion(posicion){
 
 // //LLAMA A LA FUNCION PARA MOSTRAR EL MENSAJE DE RESUMEN.
 // mensajeResumen()
-

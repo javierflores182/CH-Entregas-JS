@@ -1,14 +1,38 @@
 // Array global para almacenar las calificaciones
-let calificaciones = JSON.parse(localStorage.getItem("calificaciones")) || [
-    {DNI: '24', nombre: 'Erika Ramos', nota1: '100', nota2: '97', nota3: '85',nota4:'88.5',notaFinal: '92.63',observacion: 'Sobresaliente(S)'},
-    {DNI: '21', nombre: 'Javier Flores', nota1: '87.5', nota2: '87.5', nota3: '98.6',nota4:'97',notaFinal: '92.65',observacion: 'Sobresaliente(S)'},
-    {DNI: '22', nombre: 'cinthia lopez', nota1: '69', nota2: '75', nota3: '67',nota4:'57',notaFinal: '67.00',observacion: 'Bueno(B)'}, 
-    {DNI: '23', nombre: 'Arelys Luque', nota1: '69', nota2: '54', nota3: '55',nota4:'40',notaFinal: '54.50',observacion: 'Reprobado(R)'}];
+let calificaciones
+
+
+//funcion para obtener la informacion desde JSON (calificaciones)
+async function inicializarCalificaciones() {
+    // Verificar si hay información en el localStorage
+    calificaciones = JSON.parse(localStorage.getItem("calificaciones"));
+
+    // Si no hay información, cargar los datos desde estudiantes.json
+    if (!calificaciones) {
+        try {
+            const response = await fetch('../data/notas.json');
+            if (!response.ok) {
+                throw new Error('Error al cargar el archivo JSON');
+            }
+            calificaciones = await response.json();
+
+            // Guardar los datos en localStorage
+            localStorage.setItem("calificaciones", JSON.stringify(calificaciones));
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+    // Ahora la variable estudiantes tiene los datos, ya sea desde el localStorage o desde el JSON
+    console.log(calificaciones);
+}
 
 
 
 // Llamar a la función para llenar la tabla cuando la página cargue
-window.addEventListener('load',()=>{
+window.addEventListener('load',async () =>{
+    // Llamar a la función para inicializar las calificaciones
+    await inicializarCalificaciones()
+    //llama a la funcion para llenar de informacion la tabla.
     llenarTabla(calificaciones)
 } );
 
@@ -40,7 +64,7 @@ function llenarTabla(cal) {
 
 //llama a la funcion de filtro al ingresar un valor en el cuadro de texto.
 let textoNombres = document.querySelector("#nombre");
-textoNombres.addEventListener("change", function() {
+textoNombres.addEventListener("keyup", function() {
     let valorIngresado= textoNombres.value;
     llenarTabla(buscarPorNombre(valorIngresado));
 });
